@@ -47,4 +47,19 @@ void riscv_set_intc_hwnode_fn(struct fwnode_handle *(*fn)(void));
 struct fwnode_handle *riscv_get_intc_hwnode(void);
 int acpi_imsic_probe(struct fwnode_handle *parent);
 
+struct riscv_iommu_mrif {
+	struct list_head list;
+	u64 gpa;
+	int (*mrif_cb)(void *mrif_data);
+	void *mrif_data;
+};
+
+struct riscv_iommu_vcpu_info {
+	u64 msi_addr_pattern;
+	u64 msi_addr_mask;
+	u64 gpa;
+	u64 hpa;
+	struct riscv_iommu_mrif *mrif;
+};
+
 #endif /* _ASM_RISCV_IRQ_H */
